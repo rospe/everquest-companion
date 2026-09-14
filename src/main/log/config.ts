@@ -15,6 +15,7 @@ import {
   registryInstallCandidates,
   resolveDiscoveredRoot,
   rootHasLogs,
+  steamProtonCandidates,
   tailSurvivesRootChange,
   type DiscoveryProbes,
   type LogsDirRead,
@@ -88,6 +89,7 @@ function realProbes(): DiscoveryProbes {
     hasLogs: rootHasLogs,
     extraCandidates: () => [
       ...envCandidates(),
+      ...steamProtonCandidates(),
       ...registryInstallCandidates(Date.now() + DISCOVERY_BUDGET_MS)
     ],
     fixedDrives,

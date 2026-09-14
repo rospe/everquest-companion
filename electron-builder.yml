@@ -96,6 +96,7 @@ extraResources:
   - from: engine/target/release
     to: engine
     filter:
+      - engined
       - engined.exe
 
 asarUnpack:
@@ -216,3 +217,15 @@ nsis:
   createStartMenuShortcut: true
   shortcutName: EQ Legends Companion
   artifactName: everquest-companion-Setup-${version}.${ext}
+
+linux:
+  target:
+    - target: AppImage
+      arch:
+        - x64
+    - target: tar.gz
+      arch:
+        - x64
+  category: Game
+  icon: build/icon.png
+

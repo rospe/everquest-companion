@@ -46,8 +46,11 @@ export const ENGINE_RELEASE_BIN = join(ENGINE_DIR, 'target', 'release', ENGINE_B
  */
 export function cargoBinary(): string {
   const home = process.env.USERPROFILE ?? process.env.HOME ?? ''
-  const fallback = home === '' ? null : join(home, '.cargo', 'bin', 'cargo.exe')
-  if (fallback !== null && existsSync(fallback)) return fallback
+  const exe = process.platform === 'win32' ? 'cargo.exe' : 'cargo'
+  const cargoHome = home === '' ? null : join(home, '.cargo', 'bin', exe)
+  if (cargoHome !== null && existsSync(cargoHome)) return cargoHome
+  const brewCargo = '/home/linuxbrew/.linuxbrew/bin/cargo'
+  if (existsSync(brewCargo)) return brewCargo
   return 'cargo'
 }
 

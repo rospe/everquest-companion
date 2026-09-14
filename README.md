@@ -137,6 +137,32 @@ left. The id it uses is deliberately **not** your feedback install id: the two d
 can't be joined, by us or by anyone else. [`SECURITY.md`](SECURITY.md#usage-analytics) has
 the retention details.
 
+## Linux (Native Build)
+
+You can run EQ Legends Companion natively on Linux (outside Wine/Proton) to monitor an EverQuest instance running under Steam Proton:
+
+### Prerequisites
+- Node.js (v20+ or v22) & npm
+- Rust (`cargo` & `rustc`)
+
+### Build & Run
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Build the native Rust engine (target/release/engined)
+npm run build:engine
+
+# 3. Run in dev mode
+npm run dev
+
+# 4. Or package a standalone Linux AppImage / tar.gz
+npm run dist:linux
+```
+
+### Log Auto-Discovery
+The app scans standard Steam and Steam Flatpak Proton `compatdata` paths (e.g. `~/.var/app/com.valvesoftware.Steam/...` and `~/.local/share/Steam/...`) to detect your EverQuest install and active character logs. You can also override the path via the in-app **Settings** or by exporting `EQ_INSTALL_DIR`.
+
 ## Development
 
 Contributions welcome. Everything about building, testing, and the architecture lives in

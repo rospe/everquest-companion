@@ -48,7 +48,9 @@
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "build:engine": "tsx scripts/build-engine.mts",
     "dist": "npm run build && npm run build:engine && electron-builder --win",
-    "dist:dir": "npm run build && npm run build:engine && electron-builder --win --dir"
+    "dist:dir": "npm run build && npm run build:engine && electron-builder --win --dir",
+    "dist:linux": "npm run build && npm run build:engine && electron-builder --linux",
+    "dist:linux:dir": "npm run build && npm run build:engine && electron-builder --linux --dir"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

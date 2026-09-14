@@ -699,3 +699,37 @@ export function registryInstallCandidates(deadline = Infinity): string[] {
   }
   return sweep.out
 }
+
+/**
+ * Scan standard Steam and Steam Flatpak compatdata directories on Linux for EverQuest installs.
+ */
+export function steamProtonCandidates(): string[] {
+  if (process.platform !== 'linux') return []
+  const home = process.env.HOME ?? ''
+  if (!home) return []
+
+  const steamCompatBases = [
+    join(home, '.var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/compatdata'),
+    join(home, '.local/share/Steam/steamapps/compatdata'),
+    join(home, '.steam/steam/steamapps/compatdata')
+  ]
+
+  const out: string[] = []
+  for (const base of steamCompatBases) {
+    if (!existsSync(base)) continue
+    try {
+      const appDirs = readdirSync(base)
+      for (const appId of appDirs) {
+        for (const sub of DAYBREAK_SUBPATHS) {
+          const candidate = join(base, appId, 'pfx', 'drive_c', sub)
+          if (existsSync(candidate)) {
+            out.push(candidate)
+          }
+        }
+      }
+    } catch {
+      // Ignore unreadable dirs
+    }
+  }
+  return out
+}
